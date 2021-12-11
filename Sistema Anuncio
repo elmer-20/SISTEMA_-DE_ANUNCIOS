@@ -1,0 +1,106 @@
+---------tabla pagos-------
+create table pagos(
+idPagos int not null primary key,
+precio  double not null);
+
+
+----tabla ubcacicion---------------
+create table ubicacion(
+idUbicacion int not null primary key,
+referencia varchar(254) not null);
+
+----------tabla categoria-------
+create table categoria(
+idCategoria int not null primary key,
+categoria varchar(50) not null);
+
+------------tabla usuario----------------
+
+create table usuario(
+idUsuario int not null primary key,
+login varchar(45) not null,
+contraseña varchar(45) not null,
+nombres varchar(50) not null,
+email varchar(45) not null unique,
+pagos_idPagos int
+);
+
+-----------tabla anuncio-------
+create table anuncio(
+idAnuncio int not null primary key,
+titulo varchar(45) not null,
+fecha date not null,
+contenido varchar(245) not null,
+anuncioCol varchar(45),
+usurio_idUsuario int,
+usuario_pagos_idPagos int,
+categoria_idCategoria int,
+ubicacion_id_ubicacion int,
+pagos_idPagos int
+);
+
+----------tabla comentario----------
+create table comentario(
+idComentario int not null primary key,
+comentarios varchar(245) not null,
+usuario_idUsuario int,
+usuario_pagos_idPagos int,
+anuncio_idAnuncio int
+);
+
+
+***USUARIO(1) A PAGOS(N)**
+ALTER TABLE 'pagos' CONSTRAINT fk_usuario_pagos
+FOREIGN KEY (idUsuario)
+REFERENCES 'usuario'(idUsuario) ON DELETE NO ACTION  ON UPDATE NO ACTION;
+
+
+
+--------categoria(1) anuncio(n)
+
+alter table anuncio
+add constraint fk_anuncio_categoria
+foreign key (idAnuncio)
+references categoria(idCategoria);
+
+
+----------pagos(1) anuncio(n)
+
+
+alter table anuncio
+add constraint fk_anuncio_pagos
+foreign key (idAnuncio)
+references pagos(idPagos);
+
+
+--------aunucio(n)  ubicacion(n)
+alter table anuncio
+add constraint fk_anuncio_ubicacion
+foreign key (idAnuncio)
+references ubicacion(idUbicacion);
+
+----------usuario(1) comentario(n)
+alter table comentario
+add constraint fk_comentario_usuario
+foreign key (idComentario)
+references usuario(idUsuario);
+
+
+----------auun(1) comentario(n)
+alter table comentario
+add constraint fk_comentario_anuncio
+foreign key (idComentario)
+references anuncio(idAnuncio);
+
+---------------USUARIO(1) ANUNIO(N)
+
+alter table anuncio
+add constraint fk_anuncio_comentario
+foreign key (idAnuncio)
+references usuario(idUsuario);
+
+/***usuario(n) pagos(1)
+alter table usuariro
+add constraint fk_usuario_pagos
+foreign key (idUsuario)
+references pagos(idPagos);
