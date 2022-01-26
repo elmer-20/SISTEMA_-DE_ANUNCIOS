@@ -23,7 +23,7 @@ git clone https://github.com/elmer-20/SISTEMA_-DE_ANUNCIOS.git
 ```
 Dirigirse a la carpeta
 ```sh
-cd cd SISTEMA_-DE_ANUNCIOS
+cd SISTEMA_-DE_ANUNCIOS
 cd ANUNCIOS
 ```
 instalar
