@@ -34,7 +34,7 @@ ejecutar el servidor
 ```sh
 python manage.py runserver
 ```
-#NOTA
+# NOTA
 En linux aumentar pip3
 
 [Django]: <https://www.djangoproject.com/> 
