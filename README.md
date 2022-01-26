@@ -1,6 +1,6 @@
 # SISTEMA DE ANUNCIOS CLASIFICADOS
 
-El servicio enfocado a las personas que quieren anunciar y obtener mayor amplitud de compra y venta
+El servicio enfocado a las personas que quieren anunciar y obtener mayor amplitud de audiencia.
 
 ## MODULOS DEL SISTEMA
 
