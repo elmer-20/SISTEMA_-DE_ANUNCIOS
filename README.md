@@ -12,6 +12,31 @@ El servicio enfocado a las personas que quieren anunciar y obtener mayor amplitu
 
 ## SOFTWARE USADOS
 
-- Django
-- Python
-- Bootstrap
+- [Django] - Django es un marco web Python de alto nivel que fomenta un desarrollo rápido y un diseño limpio y pragmático.
+- [Python] - Python es un lenguaje de programación que te permite trabajar rápidamente e integrar los sistemas de manera más eficaz.
+- [Bootstrap] - Bootstrap es un marco CSS gratuito y de código abierto dirigido al desarrollo web front-end receptivo y móvil. 
+
+INSTALACION
+Primero clonar el codigo:
+```sh
+git clone https://github.com/elmer-20/SISTEMA_-DE_ANUNCIOS.git
+```
+Dirigirse a la carpeta
+```sh
+cd cd SISTEMA_-DE_ANUNCIOS
+cd ANUNCIOS
+```
+instalar
+```sh
+pip install django~=3.1
+```
+ejecutar el servidor
+```sh
+python manage.py runserver
+```
+#NOTA
+En linux aumentar pip3
+
+[Django]: <https://www.djangoproject.com/> 
+[Python]: <https://www.python.org/>
+[Bootstrap]: <https://getbootstrap.com/>
