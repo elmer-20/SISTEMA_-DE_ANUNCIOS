@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% block title %}
+    Crear categoría
+{% endblock %}
+{% block content %}
+    <div class="mt-3 mb-3">
+        <h2 class="section-heading mb-2">Creando categoría</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="text-center">
+                <input class="btn btn-primary btn-block" type="submit" value="Crear categoría"/>
+                <br/>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+{% block title %}
+    Historial de ventas
+{% endblock %}
+{% block content %}
+    <h1 class="mt-3 mb-4 text-center">Ventas realizadas</h1>
+    <div class="mt-5 row">
+        {% for venta in venta_list %}
+            {% if venta.detalleventa_set.all %}
+                <div class="col-sm-6 col-md-5 col-lg-4 py-2">
+                    <div class="card mr-2">
+                        <div class="card-header" style="background-color: #7a96f4;">
+                            <a href="{% url 'venta:detail' venta.id %}">
+                                <p class="card-title d-inline">
+                                    <i class="fa fa-shopping-cart text-white" style="font-size: 1.2em;"></i>
+                                    <span class="float-right text-white">Código: {{ venta.codigo }}</span>
+                                </p>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Fecha: {{ venta.get_date }}</h6>
+                            <p class="font-weight-bold mt-4" style="color: #3c3c3c;">Cantidad de productos:
+                                <span class="secondary">{{ venta.get_cart_items }}</span></p>
+                            <p class="font-weight-bold mt-4" style="color: #3c3c3c;">Total de venta: Bs.
+                                <span class="secondary">{{ venta.get_cart_total }}</span></p>
+                        </div>
+
+                        <div class="card-footer bg-transparent">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="btn">Estado: {{ venta.get_estado_display }}</p>
+                                </div>
+                                {% if not venta.estado == venta.ESTADO_ANULADA and not venta.estado == venta.ESTADO_CANCELADA %}
+                                    <div class="col">
+                                        {% if venta.estado == venta.ESTADO_CREADA %}
+                                            <a class="btn btn-danger"
+                                               href="{% url 'venta:anular' venta.id %}">Cancelar</a>
+                                        {% else %}
+                                            <a class="btn btn-danger"
+                                               href="{% url 'venta:anular' venta.id %}">Anular</a>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

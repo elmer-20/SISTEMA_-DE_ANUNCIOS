@@ -1,0 +1,98 @@
+{% extends 'core/base.html' %}
+{% block title %}
+    Carrito
+{% endblock %}
+{% block styles %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'producto/css/style.css' %}">
+{% endblock %}
+{% block content %}
+    <h1 class="mt-3 mb-4 text-center">Venta actual</h1>
+    <p class="text-center d-6 font-italic">Código <span class="secondary font-weight-bold">{{ venta.codigo }}</span></p>
+    <div class="venta-info">
+        {% if venta.nit and venta.nombre_factura %}
+            <p>Nombre factura: <span class="secondary font-weight-bold">{{ venta.nombre_factura }}</span></p>
+            <p>Nit: <span class="secondary font-weight-bold">{{ venta.nit }}</span></p>
+        {% endif %}
+        <p>Fecha de venta: <span class="secondary font-weight-bold">{{ venta.get_date }}</span></p>
+    </div>
+    {% if data.eliminado %}
+        <p class="text-success text-center">
+            {{ data.eliminado }}
+        </p>
+    {% endif %}
+    <div class="row justify-content-center mt-3">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio P/U</th>
+                <th scope="col">Total</th>
+                {% if venta.estado == venta.ESTADO_CREADA %}
+                    <th class="text-center" scope="col">Remover</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for detalle in lista_detalle %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ detalle.producto.nombre }}</td>
+                    <td>{{ detalle.cantidad }}</td>
+                    <td>Bs. {{ detalle.precio }}</td>
+                    <td>Bs. {{ detalle.get_total }}</td>
+                    {% if venta.estado == venta.ESTADO_CREADA %}
+                        <td class="text-center">
+                            <form id="detalle{{ detalle.id }}" action="" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="detalle_id" id="detalle_id" value="{{ detalle.id }}">
+                                <button name="btnquitardecarrito{{ detalle.id }}" type="submit"
+                                        class="btn btn-danger btn-circle">
+                                    <i class="fa fa-minus btn-add"></i>
+                                </button>
+                            </form>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            <tr class="bg-light">
+                <td></td>
+                <td>Total</td>
+                <td class="text-info font-weight-bold">{{ venta.get_cart_items }}</td>
+                <td></td>
+                <td class="text-success font-weight-bold">
+                    Bs. {{ venta.get_cart_total }}
+                </td>
+                {% if venta.estado == venta.ESTADO_CREADA %}
+                    <td></td>
+                {% endif %}
+            </tr>
+            </tbody>
+        </table>
+        <div class="mt-4">
+            {% if lista_detalle %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="id_venta" value="{{ venta.id }}">
+
+                    {% if venta.estado == venta.ESTADO_CREADA %}
+                        <a class="btn btn-danger" href="{% url 'venta:anular' venta.id %}">Cancelar venta</a>
+                        <input name="pagar" type="submit" class="btn btn-success btn-lg" value="Pagar venta">
+                    {% endif %}
+                    {% if venta.estado == venta.ESTADO_PAGADA %}
+                        <a class="btn btn-danger" href="{% url 'venta:anular' venta.id %}">Anular venta</a> |
+                        <input name="finalizar" type="submit" class="btn btn-success btn-lg" value="Finalizar venta"> |
+                        <a class="btn btn-info" href="{% url 'venta:facturar' venta.id %}">Facturar venta</a>
+                    {% endif %}
+                    {% if venta.estado == venta.ESTADO_FACTURADA %}
+                        <a class="btn btn-danger" href="{% url 'venta:anular' venta.id %}">Anular venta</a>
+                        <input name="finalizar" type="submit" class="btn btn-success btn-lg" value="Finalizar venta">
+                    {% endif %}
+                </form>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}

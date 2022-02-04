@@ -1,0 +1,116 @@
+{% extends 'core/base.html' %}
+{% block styles %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'producto/css/style.css' %}">
+{% endblock %}
+{% block title %}
+    Productos
+{% endblock %}
+{% block content %}
+    <h1 class="mt-5">Compra-Me</h1>
+    <p class="h5 mb-3">Productos</p>
+
+    <div class="form-group">
+        <form class="form-inline mr-auto" action="" method="post">
+            {% csrf_token %}
+            <input name="search" class="form-control" type="text" placeholder="Buscar" aria-label="Search">
+            <button name="btnsearch" class="btn btn-primary btn-rounded btn-sm my-0 ml-sm-2" type="submit">Search
+            </button>
+        </form>
+    </div>
+
+    {% if data.status %}
+        {% if data.status == 'False' %}
+            <p class="text-danger">No se pudo añadir el producto</p>
+            Razón: <p class="text-info">La venta actual debe estar finalizada, anulada o cancelada</p>
+        {% else %}
+            {% if data.status == 'Sin resultados' %}
+                <p class="text-danger">Sin resultados</p>
+            {% else %}
+                <p class="text-success">{{ data.status }}</p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    <hr>
+    {% if data.error %}
+        <p class="text-danger">
+            {{ data.error }}
+        </p>
+    {% endif %}
+    <div class="row mt-3">
+        {% for producto in producto_list %}
+            <div class="col-sm-6 col-md-5 col-lg-4 py-2">
+                <div class="card mr-2">
+                    <div class="card-header">
+                        <p class="card-title h6 d-inline">{{ producto.nombre }}</p>
+                        {% if producto.en_stock > 0 %}
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-success btn-circle float-right" data-toggle="modal"
+                                    data-target="#addToCart{{ producto.id }}">
+                                <i class="fa fa-plus btn-add"></i>
+                            </button>
+
+                            <!-- Modal -->
+
+                            <div class="modal fade" id="addToCart{{ producto.id }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <form action="" method="post">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Añadir a
+                                                    carrito: {{ producto.nombre }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id_producto" id="id_producto"
+                                                       value="{{ producto.id }}">
+                                                <label for="cantidad">Cantidad</label>
+                                                <input required name="cantidad" id="cantidad" type="number"
+                                                       class="form-control"
+                                                       step=".01"
+                                                       min="0"
+                                                       max="{{ producto.en_stock }}" value="0">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary btn-block">Añadir</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+
+                        <h6 class="card-subtitle mb-2 text-muted">Bs. {{ producto.precio }}</h6>
+                        <p class="card-text">
+                            {{ producto.descripción }}
+                        </p>
+                    </div>
+
+                    <div class="card-footer bg-transparent">
+                        <div class="row">
+                            <div class="col">
+                                En stock:
+                                <br>
+                                {{ producto.en_stock }}
+                            </div>
+                            <div class="col">
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        Categoría: {{ producto.categoria|default:'Sin categoría' }}
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

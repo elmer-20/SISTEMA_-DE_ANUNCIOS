@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block title %}
+    Facturar
+{% endblock %}
+{% block content %}
+    <p class="h5 mt-4 mb-4">Detalles:</p>
+    <p class="card-subtitle h6 mb-2 text-muted">Código de venta: {{ venta.codigo }}</p>
+    <p class="card-subtitle h6 mb-2 text-muted">Fecha de venta: {{ venta.get_date }}</p>
+
+    <p class="h5 mt-4 mb-4">Productos:</p>
+    <ul class="list-group">
+        {% for detalleventa in venta.detalleventa_set.all %}
+            <li class="list-group-item">
+                <p>{{ detalleventa.producto.nombre }}
+                    <span class="secondary float-right">Cantidad: {{ detalleventa.cantidad }}</span>
+                    <span class="secondary float-right">Bs. {{ detalleventa.precio }}  ---</span>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-block">Facturar</button>
+        <a class="btn btn-danger btn-block" href="{% url 'venta:ventas' %}">Cancelar</a>
+    </form>
+{% endblock %}

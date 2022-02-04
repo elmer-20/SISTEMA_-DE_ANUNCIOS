@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% block title %}
+    Detalle venta
+{% endblock %}
+{% block content %}
+    <h1 class="mt-3 mb-4 text-center">Detalle de venta</h1>
+    <p class="text-center d-6 font-italic">Código <span class="secondary font-weight-bold">{{ venta.codigo }}</span></p>
+    <div class="venta-info">
+        {% if venta.nit and venta.nombre_factura %}
+            <p>Nombre factura: <span class="secondary font-weight-bold">{{ venta.nombre_factura }}</span></p>
+            <p>Nit: <span class="secondary font-weight-bold">{{ venta.nit }}</span></p>
+        {% else %}
+            <p class="text-primary">Sin factura</p>
+        {% endif %}
+        <p>Fecha de venta: <span class="secondary font-weight-bold">{{ venta.get_date }}</span></p>
+    </div>
+    <p class="h5">Productos</p>
+    <ul class="list-group">
+        {% for detalleventa in venta.detalleventa_set.all %}
+            <li class="list-group-item">
+                <p>{{ detalleventa.producto.nombre }}
+                    <span class="secondary float-right">Bs. {{ detalleventa.precio }}</span>
+                    <span class="secondary float-right">Cantidad {{ detalleventa.cantidad }}--</span>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="mt-4">
+        <p>Total productos: <span class="secondary">{{ venta.get_cart_items }}</span></p>
+        <p>Total venta: <span class="secondary">Bs. {{ venta.get_cart_total }}</span></p>
+    </div>
+{% endblock %}

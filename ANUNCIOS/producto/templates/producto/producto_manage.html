@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% block title %}
+    Gestionar Productos
+{% endblock %}
+{% block content %}
+    <div class="d-flex justify-content-between mb-4 mt-4">
+        <h1 class="">Lista de productos</h1>
+        <div class="mt-2">
+            <a href="{% url 'producto:create' %}" class="btn btn-primary">Crear</a>
+        </div>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">En stock</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Opciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for producto in producto_list %}
+            <tr>
+                <td scope="row">{{ producto.id }}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.descripción|truncatechars:100 }}</td>
+                <td>{{ producto.en_stock }}</td>
+                <td>{{ producto.categoria|default:'Sin Categoría' }}</td>
+                <td>Bs. {{ producto.precio }}</td>
+                <td>
+                    <a class="btn btn-primary"
+                       href="{% url 'producto:update' producto.id %}">Editar</a>
+                    <a class="btn btn-danger"
+                       href="{% url 'producto:delete' producto.id %}">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
