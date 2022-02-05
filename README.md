@@ -26,9 +26,13 @@ Dirigirse a la carpeta
 cd SISTEMA_-DE_ANUNCIOS
 cd ANUNCIOS
 ```
-instalar
+instalar los paquetes requeridos
 ```sh
-pip install django~=3.1
+pip install -r requeriments.txt
+```
+ejectutar las migraciones
+```sh
+python manage.py makemigrations
 ```
 ejecutar el servidor
 ```sh
