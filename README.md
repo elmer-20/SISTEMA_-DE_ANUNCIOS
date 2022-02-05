@@ -33,6 +33,7 @@ pip install -r requeriments.txt
 ejectutar las migraciones
 ```sh
 python manage.py makemigrations
+Python manage.py  Migrate
 ```
 ejecutar el servidor
 ```sh
