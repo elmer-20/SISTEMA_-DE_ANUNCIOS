@@ -1,0 +1,32 @@
+Sistema de Anuncios
+----------------
+
+Este sistema permitira a cualquier persona, crear un anuncio o clasificado de manera gratuita
+permitiendole dar a conocer sus productos y/o servicios que ofrecen.
+
+Instalaci�n
+----------------
+1. Crear nuestra base de datos con el nombre: "publicidad" e indicar 
+el cotejamiento en "utf8_unicode_ci".
+2. Importar nuestro archivo .sql(deber�an crearse todas las tablas).
+3. Arrastrar nuestra carpeta descomprimida a la carpeta donde tengamos nuestros
+programas PHP. en xampp al escritorio "C:\xampp\htdocs\".
+4. Tener iniciados los servicios apache y mysql.
+5. Ejecutar nuestro programa en nuestro navegador en la ruta 
+"http://localhost/xampp/, en la esquina superior izquierda
+se puede logear para acceder al sistema"
+6. Crear un usuario tipo administrador para poder comenzar a crear las encuestas.
+	*Existen dos usuarios creados:
+	email: admin@gmail.com, password: admin, rol: administrador
+	email: 123@gmail.com, password: 123, rol: anunciante
+
+Futuras Mejoras
+-----------------
+* El sistema contar� con reportes m�s personalizados.
+* Descarga de reportes en PDF.
+* Se integrara la plantilla adminLTE. para un mejor uso del programa.
+
+Licencia
+-----------------
+inge apruebenos xfa
+
