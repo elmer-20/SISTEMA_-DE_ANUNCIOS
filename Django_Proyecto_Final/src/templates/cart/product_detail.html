@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0">
+                <a href={% url 'home' %}">Home</a>
+                <span class="mx-2 mb-0">/</span>
+                <strong class="text-block">{{ product.title }}</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+
+            <div class="col-md-6">
+
+                <a><img src="{{ product.image.url }}" class="img-fluid"></a>
+            </div>
+
+                <div class="col-md-6 mb-4" data-aos='fade-up'>
+
+
+                    <h2 class="text-black">{{ product.title }}</h2>
+                    <p>{{ product.description }}</p>
+                    <p>Available Stock: {{ product.stock }}</p>
+                    {% if product.in_stock %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type='submit' class="btn btn-sm btn-primary buy-now">Add to Cart</button>
+                    </form>
+                    
+                    {% else %}
+                    <p>This item is out of stock</p>
+                    {% endif %}
+                </div>
+            
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

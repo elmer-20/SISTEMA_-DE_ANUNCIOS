@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!--<div class="site-blocks-cover" style="background-image: url({% static 'images/hero.jpg' %});" data-aos="fade">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 pt-5 pt-md-0">
+            </div>
+        </div>
+    </div>
+</div>  -->
+<div id="carouselExampleControls" class="carousel slide cover-container d-flex w-100 h-100 p-3 mx-auto flex-column" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="./../static/images/hero.jpg" class="d-block w-100" alt="..." style="width: 1200px; height: 600px;">
+      </div>
+      <div class="carousel-item">
+        <img src="https://c8.alamy.com/compes/cmp8ga/lima-peru-distrito-barranco-calle-colon-anuncio-publicitario-banner-proveedor-de-servicios-moviles-reparaciones-claro-telefonos-celulares-movistar-latino-hispano-cmp8ga.jpg" class="d-block w-100" alt="..." style="width: 1200px; height: 600px;">
+      </div>
+      <div class="carousel-item">
+        <img src="https://todoclasificados.pe/img/alquiler-de-tv-led-55-47-42-pulgs-lima-388812804.jpg" class="d-block w-100" alt="..." style="width: 1200px; height: 600px;">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+{% endblock content %}

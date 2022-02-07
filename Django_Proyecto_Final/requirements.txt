@@ -1,0 +1,6 @@
+django
+pillow
+psycopg2-binary
+django-environ
+django-crispy-forms
+django-allauth

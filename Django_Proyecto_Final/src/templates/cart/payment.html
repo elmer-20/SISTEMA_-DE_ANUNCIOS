@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid rgb(155, 81, 81);
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: rgb(155, 81, 81) transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+</style>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            {% comment %} <div class="alert alert-success" role="alert" id="alertSuccess" style="display: none;">
+                Your payment was successful.
+            </div>
+
+            <div class="alert alert-danger" role="alert" id="alertFailure" style="display: none;">
+                Your payment failed. Please try again.
+            </div>
+
+
+            <div class="text-center py-3">
+                <div id="loader" class="lds-ring" style="margin:auto; display:none;">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div> {% endcomment %}
+            
+
+            <div id='paymentInfo'>
+                <p>Order Total: ${{ order.get_total }}</p>
+                <h4>Select a payment method</h4>
+                <div id="paypal-button-container"></div>
+            </div>
+
+        </div>
+        
+    </div>
+</div>
+
+
+{% endblock content %}
+
+
+{% block scripts %}
+    <script src="https://www.paypal.com/sdk/js?client-id={{ PAYPAL_CLIENT_ID }}"></script>
+
+    <script>
+
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                amount: {
+                    value: '0.01'
+                }
+                }]
+            });
+            },
+            onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Transaction completed by ' + details.payer.name.given_name);
+            });
+            }
+        }).render('#paypal-button-container');
+    </script>
+{% endblock scripts %}
