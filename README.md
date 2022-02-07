@@ -12,9 +12,9 @@ El servicio enfocado a las personas que quieren anunciar y obtener mayor amplitu
 
 ## SOFTWARE USADOS
 
-- [Django] - Django es un marco web Python de alto nivel que fomenta un desarrollo rápido y un diseño limpio y pragmático.
-- [Python] - Python es un lenguaje de programación que te permite trabajar rápidamente e integrar los sistemas de manera más eficaz.
-- [Bootstrap] - Bootstrap es un marco CSS gratuito y de código abierto dirigido al desarrollo web front-end receptivo y móvil. 
+- [Mysql] 
+- [PHP]
+- [Bootstrap]
 
 INSTALACION
 Primero clonar el codigo:
